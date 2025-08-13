@@ -2,6 +2,10 @@ import React from "react";
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk as SpaceGrotesk } from "next/font/google";
 import "./globals.css";
+// eslint-disable-next-line n/no-missing-import
+import ThemeProvider from "@/contex/Theme";
+// eslint-disable-next-line n/no-missing-import
+import Navbar from "@/components/navigation/navbar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -15,9 +19,9 @@ const spaceGrotesk = SpaceGrotesk({
 
 export const metadata: Metadata = {
   title: "Apka Stasia",
-  description: "A comunity-driven platform for asking and answering programing questions. " +
+  description:
+    "A comunity-driven platform for asking and answering programing questions. " +
     "Get help, share knowledge, and grow together with other developers. Explore topics in web development, mobile development, algorithm, data structures, and more.",
-  
 };
 
 export default function RootLayout({
@@ -26,11 +30,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
