@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk as SpaceGrotesk } from "next/font/google";
 import "./globals.css";
-// eslint-disable-next-line n/no-missing-import
 import ThemeProvider from "@/contex/Theme";
-// eslint-disable-next-line n/no-missing-import
-import Navbar from "@/components/navigation/navbar";
+import { Toaster } from "sonner";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,26 +24,27 @@ export const metadata: Metadata = {
     "Get help, share knowledge, and grow together with other developers. Explore topics in web development, mobile development, algorithm, data structures, and more.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const RootLayout = async ({ children }: { children: ReactNode }) => {
+  const session = await auth();
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+      <SessionProvider session={session}>
+        <body
+          className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
         >
-          <Navbar />
-          {children}
-        </ThemeProvider>
-      </body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster richColors />
+        </body>
+      </SessionProvider>
     </html>
   );
-}
+};
+export default RootLayout;

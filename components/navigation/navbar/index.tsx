@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-// eslint-disable-next-line n/no-missing-import
 import Theme from "@/components/navigation/navbar/Theme";
 
 const Navbar = () => {

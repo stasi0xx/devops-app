@@ -38,8 +38,8 @@
     --shadow-dark-100: 0px 2px 10px 0px rgba(46, 52, 56, 0.1);
     --shadow-dark-200: 2px 0px 20px 0px rgba(39, 36, 36, 0.04);
 
-    /*--background-image-auth-dark: url("/images/auth-dark.png");*/
-    /*--background-image-auth-light: url("/images/auth-light.png");*/
+    --background-image-auth-dark: url("/images/auth-dark.png");
+    --background-image-auth-light: url("/images/auth-light.png");
     --breakpoint-xs: 420px;
 
     --font-inter: var(--font-inter);
@@ -432,6 +432,7 @@ code {
     display: grid !important;
     width: 100% !important;
 }
+
 /*---break---*/
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
@@ -505,6 +506,7 @@ code {
     --sidebar-border: oklch(0.929 0.013 255.508);
     --sidebar-ring: oklch(0.704 0.04 256.788);
 }
+
 /*---break---*/
 .dark {
     --background: oklch(0.129 0.042 264.695);
@@ -539,12 +541,14 @@ code {
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.551 0.027 264.364);
 }
+
 /*---break---*/
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+
+    body {
+        @apply bg-background text-foreground;
     }
 }

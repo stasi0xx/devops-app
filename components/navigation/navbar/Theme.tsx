@@ -4,14 +4,12 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-// eslint-disable-next-line n/no-missing-import
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  // eslint-disable-next-line n/no-missing-import
 } from "@/components/ui/dropdown-menu";
 
 const Theme = () => {

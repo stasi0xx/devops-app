@@ -4,7 +4,6 @@ import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
 
-// eslint-disable-next-line n/no-missing-import
 import { cn } from "@/lib/utils";
 
 function DropdownMenu({
