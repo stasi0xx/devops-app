@@ -8,19 +8,7 @@ const Home = async () => {
 
   return (
     <>
-      <div className={"primary-gradient"}>
-        <h1 className={"h1-bold font-inter "}>Hello World</h1>
-      </div>
-      <form
-        className={"px-10 pt-[100px]"}
-        action={async () => {
-          "use server";
-
-          await signOut({ redirectTo: ROUTES.SIGN_IN });
-        }}
-      >
-        <Button type={"submit"}>Log out</Button>
-      </form>
+      <h1>WItaj Świecie</h1>
     </>
   );
 };

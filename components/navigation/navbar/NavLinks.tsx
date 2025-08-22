@@ -6,33 +6,45 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { SheetClose } from "@/components/ui/sheet";
 
-const NavLinks = ({ isMobileNav = false }: { isMobileNav?: boolean }) => {
+type Props = {
+  isMobileNav?: boolean;
+  collapsed?: boolean; // nowy przełącznik: gdy true, ukryj etykiety tekstowe
+};
+
+const NavLinks = ({ isMobileNav = false, collapsed = false }: Props) => {
   const pathname = usePathname();
-  const userId = 1;
+  const userId = 1; // podstaw pod własny mechanizm pobrania id
 
   return (
     <>
       {sidebarLinks.map((item) => {
+        // lokalny href bez mutacji oryginału
+        const href =
+          item.route === "/profile"
+            ? userId
+              ? `${item.route}/${userId}`
+              : null
+            : item.route;
+
+        if (!href) return null;
+
         const isActive =
-          (pathname.includes(item.route) && item.route.length > 1) ||
-          pathname === item.route;
+          (href.length > 1 && pathname.startsWith(href)) || pathname === href;
 
-        if (item.route === "/profile") {
-          if (userId) item.route = `${item.route}/${userId}`;
-          else return null;
-        }
-
-        const LinkComponent = (
+        return (
           <Link
-            href={item.route}
+            href={href}
             key={item.label}
+            title={item.label}
             className={cn(
+              "flex items-center gap-3 rounded-lg px-3 py-5 bg-transparent ",
+              // w sidebarze zwykle pełna szerokość, w nav-barze desktop już nie
+              isMobileNav ? "w-full" : "w-full",
+              collapsed ? "justify-center gap-0 px-2 py-3" : "gap-3 px-3 py-5",
               isActive
-                ? "primary-gradient rounded-lg text-light-900"
-                : "text-dark300_light900",
-              "flex items-center justify-start gap-4 bg-transparent p-4 ml-2 mr-2.5",
+                ? "primary-gradient text-light-900"
+                : "text-dark300_light900 hover:bg-accent/40",
             )}
           >
             <Image
@@ -45,23 +57,18 @@ const NavLinks = ({ isMobileNav = false }: { isMobileNav?: boolean }) => {
             <p
               className={cn(
                 isActive ? "base-bold" : "base-medium",
-                !isMobileNav && "max-lg:hidden",
+                // ukryj label w trybie collapsed (np. gdy mało miejsca)
+                !isMobileNav && collapsed && "hidden",
+                // w górnym navbarze (niemobilnym) można dodatkowo ukrywać na mniejszych szerokościach
               )}
             >
               {item.label}
             </p>
           </Link>
         );
-
-        return isMobileNav ? (
-          <SheetClose asChild key={item.route}>
-            {LinkComponent}
-          </SheetClose>
-        ) : (
-          <React.Fragment key={item.route}>{LinkComponent}</React.Fragment>
-        );
       })}
     </>
   );
 };
+
 export default NavLinks;
