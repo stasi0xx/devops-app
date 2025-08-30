@@ -1,0 +1,78 @@
+/* MDXEditor dropdowny/popovery */
+.mdxeditor-popover,
+.mdxeditor-dropdown,
+.mdxeditor-modal,
+.mdxeditor-select,
+.mdxeditor-menu,
+.mdxeditor-toolbar [role="menu"],
+.mdxeditor-toolbar [role="listbox"] {
+    background: var(--popover) !important;
+    color: var(--popover-foreground) !important;
+    border-color: var(--border) !important;
+}
+
+.mdxeditor-toolbar .mdx-blocktype-select [aria-haspopup="listbox"],
+.mdxeditor-toolbar .mdx-blocktype-select [role="combobox"] {
+    background: var(--input) !important;
+    color: var(--foreground) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm, 6px) !important;
+}
+
+[role="option"],
+[role="menuitem"] {
+    background: #373a41 !important;
+    color: #7c8cac;
+}
+
+[role="option"][data-highlighted],
+[role="menuitem"][data-highlighted] {
+    background: #101116 !important;
+    color: var(--foreground) !important;
+}
+
+
+/* Sandpack – pełne przyciemnienie UI kontenerów, zakładek i konsoli */
+.dark .sp-wrapper,
+.dark .sp-layout,
+.dark .sp-stack,
+.dark .sp-tabs,
+.dark .sp-tab,
+.dark .sp-tab-button,
+.dark .sp-tabs-scrollable-container,
+.dark .sp-code-editor,
+.dark .sp-editor,
+.dark .sp-cm,
+.dark .sp-toolbar,
+.dark .sp-preview,
+.dark .sp-preview-container,
+.dark .sp-preview-actions,
+.dark .sp-console,
+.dark .sp-empty {
+    background: var(--card) !important;
+    color: var(--card-foreground) !important;
+    border-color: var(--border) !important;
+}
+
+/* Aktywna zakładka i hover */
+.dark .sp-tab-button[aria-selected="true"] {
+    background: var(--input) !important;
+    color: var(--foreground) !important;
+    border-color: var(--border) !important;
+}
+
+.dark .sp-tab-button:hover {
+    background: var(--input) !important;
+}
+
+/* Iframe podglądu – tło przezroczyste, żeby nie „przebijała” biel */
+.dark .sp-preview-iframe {
+    background: transparent !important;
+}
+
+/* Gdyby pojawiały się białe obramowania przycisków Sandpack */
+.dark .sp-button {
+    background: var(--input) !important;
+    color: var(--foreground) !important;
+    border-color: var(--border) !important;
+}
