@@ -1,8 +1,9 @@
-import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ROUTES from "@/constants/routes";
 import LocalSearch from "@/components/search/LocalSearch";
+import HomeFilter from "@/components/filters/HomeFilter";
+import QuestionCard from "@/components/cards/QuestionCard";
 
 const questions = [
   {
@@ -13,7 +14,12 @@ const questions = [
       { _id: "1", name: "Next.js" },
       { _id: "2", name: "React" },
     ],
-    author: { _id: "1", name: "Stani" },
+    author: {
+      _id: "1",
+      name: "Stani",
+      image:
+        "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png",
+    },
     upvotes: 123,
     answers: 12,
     views: 123,
@@ -27,7 +33,12 @@ const questions = [
       { _id: "1", name: "Next.js" },
       { _id: "2", name: "React" },
     ],
-    author: { _id: "1", name: "Stani" },
+    author: {
+      _id: "1",
+      name: "Stani",
+      image:
+        "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png",
+    },
     upvotes: 123,
     answers: 12,
     views: 123,
@@ -40,11 +51,17 @@ interface SearchParams {
 }
 
 const Home = async ({ searchParams }: SearchParams) => {
-  const { query = "" } = await searchParams;
+  const { query = "", filter = "" } = await searchParams;
 
-  const filteredQuestions = questions.filter((question) =>
-    question.title.toLowerCase().includes(query?.toLowerCase()),
-  );
+  const filteredQuestions = questions.filter((question) => {
+    const matchQuery = question.title
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const matchFilter = filter
+      ? question.tags[0].name.toLowerCase() === filter.toLowerCase()
+      : true;
+    return matchQuery && matchFilter;
+  });
 
   return (
     <>
@@ -69,10 +86,10 @@ const Home = async ({ searchParams }: SearchParams) => {
           otherClasses={"flex-1"}
         />
       </section>
-      HomeFilter
+      <HomeFilter />
       <div className={"mt-10 flex w-full flex-col gap-6"}>
         {filteredQuestions.map((question) => (
-          <h1 key={question._id}>{question.title}</h1>
+          <QuestionCard key={question._id} question={question} />
         ))}
       </div>
     </>

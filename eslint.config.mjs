@@ -56,6 +56,9 @@ const eslintConfig = [
       "no-undef": "off",
     },
   },
+  {
+    overrides: [],
+  },
 ];
 
 export default eslintConfig;
